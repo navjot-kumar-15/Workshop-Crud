@@ -1,7 +1,7 @@
-const User = require("../model/user");
+import User from "../model/user.js";
 
 // SAVING THE DATA BY THE USER
-const addData = async (req, res) => {
+export const addData = async (req, res) => {
   const user = req.body;
   const newUser = new User(user);
   try {
@@ -13,7 +13,7 @@ const addData = async (req, res) => {
 };
 
 // GETTING THE USER DATA
-const getData = async (req, res) => {
+export const getData = async (req, res) => {
   try {
     const users = await User.find({});
     res.status(200).json(users);
@@ -23,7 +23,7 @@ const getData = async (req, res) => {
 };
 
 // GETTING THE SINGLE USER DETAILS
-const singleData = async (req, res) => {
+export const singleData = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     res.status(200).json(user);
@@ -33,7 +33,7 @@ const singleData = async (req, res) => {
 };
 
 // UPDATING THE USER
-const editData = async (req, res) => {
+export const editData = async (req, res) => {
   let data = req.body;
   let editUser = new User(data);
   try {
@@ -45,7 +45,7 @@ const editData = async (req, res) => {
 };
 
 // DELETE THE DATA
-const deleteData = async (req, res) => {
+export const deleteData = async (req, res) => {
   try {
     await User.deleteOne({ _id: req.params.id });
     res.status(200).json({ message: "user has been deleted successfully" });
@@ -53,5 +53,3 @@ const deleteData = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
-
-module.exports = { addData, getData, editData, deleteData, singleData };

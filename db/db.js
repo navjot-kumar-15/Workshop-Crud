@@ -1,9 +1,10 @@
-const mongoose = require("mongoose");
-const dotenv = require("dotenv").config();
-const Connection = async (req, res) => {
-  const URL = process.env.URL;
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
+export const Connection = async (req, res) => {
+  const DATABASE_URL = process.env.DATABASE_URL;
   try {
-    await mongoose.connect(URL, {
+    await mongoose.connect(DATABASE_URL, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
     });
@@ -12,5 +13,3 @@ const Connection = async (req, res) => {
     console.log("Error while connecting the data", error.message);
   }
 };
-
-module.exports = Connection;
